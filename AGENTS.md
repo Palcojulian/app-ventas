@@ -1,3 +1,87 @@
+# AGENTS.md - Development Guidelines
+
+## Build, Lint & Test Commands
+
+### Testing
+- `composer test` - Run all tests
+- `php artisan test --compact` - Run tests with compact output
+- `php artisan test --compact --filter=testName` - Run single test
+- `php artisan make:test --pest {name}` - Create new Pest test
+
+### Code Formatting (Laravel Pint)
+- `vendor/bin/pint --dirty --format agent` - Format modified PHP files
+- Run this after every PHP file modification
+
+### Frontend
+- `npm run dev` - Start Vite dev server
+- `npm run build` - Build production assets
+
+### Laravel
+- `php artisan route:list` - List routes
+- `php artisan config:show [key]` - Show config
+- `php artisan tinker --execute "..."` - Execute PHP code
+
+---
+
+## Code Style Guidelines
+
+### PHP
+- Always use curly braces for control structures, even single-line
+- Use PHP 8 constructor property promotion: `public function __construct(public Type $prop) { }`
+- Explicit return types on all methods and functions
+- Enum keys: TitleCase (e.g., `FavoritePerson`, `Monthly`)
+- Prefer PHPDoc blocks over inline comments
+
+### Laravel Conventions
+- Use `php artisan make:` commands for new files (migrations, controllers, models)
+- Always create Form Request classes for validation
+- Use Eloquent relationships; avoid raw `DB::` queries
+- Prevent N+1 with eager loading (`->with('relation')`)
+- Use named routes with `route()` function
+- Use `config('key')`, never `env()` outside config files
+
+### Models
+- Define casts in `casts()` method, not `$casts` property
+- Use proper relationship methods with return type hints
+
+### Laravel 12 Structure
+- Middleware in `bootstrap/app.php`, not `app/Http/Kernel.php`
+- Console commands auto-registered in `app/Console/Commands/`
+- Service providers in `bootstrap/providers.php`
+
+---
+
+## Laravel Boost Tools
+
+Use these MCP tools for development:
+- `database-query` - Read-only SQL queries
+- `database-schema` - Inspect table structure
+- `search-docs` - Version-specific Laravel/Pest docs (ALWAYS use this)
+- `browser-logs` - Frontend JavaScript errors
+- `get-absolute-url` - Generate proper URLs
+
+### Debugging
+- `php artisan tinker --execute "..."` - Run PHP code
+- `php artisan config:show [key]` - Read config
+- Read `.env` directly for environment variables
+
+---
+
+## Testing with Pest
+
+- Activate `pest-testing` skill when writing tests
+- Create: `php artisan make:test --pest {name}`
+- Use `--unit` for unit tests, default is feature tests
+- Use model factories for test data
+- Check for custom factory states before manual setup
+
+---
+
+## Key Dependencies
+- PHP 8.4.18, Laravel 12, Pest 4, Tailwind 4, Vite 7
+
+===
+
 <laravel-boost-guidelines>
 === foundation rules ===
 
@@ -12,6 +96,7 @@ This application is a Laravel application and its main Laravel ecosystems packag
 - php - 8.4.18
 - laravel/framework (LARAVEL) - v12
 - laravel/prompts (PROMPTS) - v0
+- laravel/sanctum (SANCTUM) - v4
 - laravel/boost (BOOST) - v2
 - laravel/mcp (MCP) - v0
 - laravel/pail (PAIL) - v1
