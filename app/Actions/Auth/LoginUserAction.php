@@ -2,16 +2,19 @@
 
 namespace App\Actions\Auth;
 
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class LoginUserAction
 {
     public function handle(array $data): ?string
     {
-        if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
-            return Auth::user()->createToken('auth-token')->plainTextToken;
+        $user = User::where('email', $data['email'])->first();
+
+        if (! $user || ! Hash::check($data['password'], $user->password)) {
+            return null;
         }
 
-        return null;
+        return $user->createToken('auth-token')->plainTextToken;
     }
 }
