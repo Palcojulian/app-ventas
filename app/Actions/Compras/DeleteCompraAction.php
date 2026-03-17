@@ -21,7 +21,8 @@ class DeleteCompraAction
                     $detalle->id_producto,
                     'compra',
                     -$detalle->cantidad,
-                    $idUsuario
+                    $idUsuario,
+                    'Compra #'.$compra->id.' - Eliminada'
                 );
             }
         }

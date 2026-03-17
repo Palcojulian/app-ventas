@@ -11,7 +11,8 @@ class MovimientoInventarioService
         int $idProducto,
         string $tipoMovimiento,
         int $cantidad,
-        int $idUsuario
+        int $idUsuario,
+        ?string $observacion = null
     ): MovimientoInventario {
         $producto = Producto::findOrFail($idProducto);
         $stockAnterior = $producto->stock_actual;
@@ -26,6 +27,7 @@ class MovimientoInventarioService
             'id_producto' => $idProducto,
             'tipo_movimiento' => $tipoMovimiento,
             'cantidad' => $cantidad,
+            'observacion' => $observacion,
             'stock_anterior' => $stockAnterior,
             'stock_nuevo' => $stockNuevo,
             'id_usuario' => $idUsuario,

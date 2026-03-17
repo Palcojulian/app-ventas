@@ -44,7 +44,8 @@ class CreateCompraAction
                         $detalle['id_producto'],
                         'compra',
                         $detalle['cantidad'],
-                        $idUsuario
+                        $idUsuario,
+                        'Ingreso a inventario compra #'.$compra->id
                     );
                 }
             }

@@ -27,7 +27,8 @@ class UpdateCompraAction
                     $detalle->id_producto,
                     'compra',
                     $detalle->cantidad,
-                    $idUsuario
+                    $idUsuario,
+                    'Compra #'.$compra->id.' - Completada'
                 );
             }
         }
@@ -41,7 +42,8 @@ class UpdateCompraAction
                     $detalle->id_producto,
                     'compra',
                     -$detalle->cantidad,
-                    $idUsuario
+                    $idUsuario,
+                    'Compra #'.$compra->id.' - '.ucfirst($nuevoEstado)
                 );
             }
         }
