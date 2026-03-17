@@ -14,12 +14,18 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/logout', [AuthController::class, 'logout']);
         Route::get('/me', [AuthController::class, 'me']);
     });
-
-    Route::prefix('categorias')->group(function () {
-        Route::get('/', [CategoriaController::class, 'index']);
-        Route::post('/', [CategoriaController::class, 'store']);
-        Route::get('/{id}', [CategoriaController::class, 'show']);
-        Route::put('/{id}', [CategoriaController::class, 'update']);
-        Route::delete('/{id}', [CategoriaController::class, 'destroy']);
+    
+    Route::prefix('v1')->group(function () {
+        Route::prefix('categorias')->group(function () {
+            Route::get('/', [CategoriaController::class, 'index']);
+            Route::post('/', [CategoriaController::class, 'store']);
+            Route::get('/{id}', [CategoriaController::class, 'show']);
+            Route::put('/{id}', [CategoriaController::class, 'update']);
+            Route::delete('/{id}', [CategoriaController::class, 'destroy']);
+        });
+        
     });
+
+    
+
 });
