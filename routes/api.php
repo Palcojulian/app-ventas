@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Categorias\CategoriaController;
+use App\Http\Controllers\Compras\CompraController;
+use App\Http\Controllers\Productos\ProductoController;
+use App\Http\Controllers\Proveedores\ProveedorController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')->group(function () {
@@ -14,7 +17,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/logout', [AuthController::class, 'logout']);
         Route::get('/me', [AuthController::class, 'me']);
     });
-    
+
     Route::prefix('v1')->group(function () {
         Route::prefix('categorias')->group(function () {
             Route::get('/', [CategoriaController::class, 'index']);
@@ -23,9 +26,31 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::put('/{id}', [CategoriaController::class, 'update']);
             Route::delete('/{id}', [CategoriaController::class, 'destroy']);
         });
-        
-    });
 
-    
+        Route::prefix('proveedores')->group(function () {
+            Route::get('/', [ProveedorController::class, 'index']);
+            Route::post('/', [ProveedorController::class, 'store']);
+            Route::get('/{id}', [ProveedorController::class, 'show']);
+            Route::put('/{id}', [ProveedorController::class, 'update']);
+            Route::delete('/{id}', [ProveedorController::class, 'destroy']);
+        });
+
+        Route::prefix('productos')->group(function () {
+            Route::get('/', [ProductoController::class, 'index']);
+            Route::post('/', [ProductoController::class, 'store']);
+            Route::get('/{id}', [ProductoController::class, 'show']);
+            Route::put('/{id}', [ProductoController::class, 'update']);
+            Route::delete('/{id}', [ProductoController::class, 'destroy']);
+        });
+
+        Route::prefix('compras')->group(function () {
+            Route::get('/', [CompraController::class, 'index']);
+            Route::post('/', [CompraController::class, 'store']);
+            Route::get('/{id}', [CompraController::class, 'show']);
+            Route::put('/{id}', [CompraController::class, 'update']);
+            Route::delete('/{id}', [CompraController::class, 'destroy']);
+        });
+
+    });
 
 });
