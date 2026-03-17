@@ -53,7 +53,7 @@ class CompraController extends Controller
         try {
             $compra = $this->compraService->getById($id);
 
-            return response()->json($compra);
+            return response()->json(["id_compra" => $id, "items_compra" => $compra], 200);
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'error' => 'Compra no encontrada.',
