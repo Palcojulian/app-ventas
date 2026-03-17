@@ -5,6 +5,7 @@ use App\Http\Controllers\Categorias\CategoriaController;
 use App\Http\Controllers\Compras\CompraController;
 use App\Http\Controllers\Productos\ProductoController;
 use App\Http\Controllers\Proveedores\ProveedorController;
+use App\Http\Controllers\Ventas\VentaController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')->group(function () {
@@ -49,6 +50,14 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/{id}', [CompraController::class, 'show']);
             Route::put('/{id}', [CompraController::class, 'update']);
             Route::delete('/{id}', [CompraController::class, 'destroy']);
+        });
+
+        Route::prefix('ventas')->group(function () {
+            Route::get('/', [VentaController::class, 'index']);
+            Route::post('/', [VentaController::class, 'store']);
+            Route::get('/{id}', [VentaController::class, 'show']);
+            Route::put('/{id}', [VentaController::class, 'update']);
+            Route::delete('/{id}', [VentaController::class, 'destroy']);
         });
 
     });
