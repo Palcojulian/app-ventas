@@ -8,9 +8,10 @@ use App\Services\Inventario\MovimientoInventarioService;
 
 class DeleteVentaAction
 {
-    public function handle(Venta $venta, int $idUsuario): void
+    public function handle(int $id_venta, int $idUsuario): void
     {
         $movimientoInventarioService = new MovimientoInventarioService;
+        $venta = Venta::findOrFail($id_venta);    
 
         if ($venta->estado === 'completado') {
             foreach ($venta->detalleVentas as $detalle) {

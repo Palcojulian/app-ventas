@@ -36,14 +36,11 @@ class VentaService
 
     public function update(int $id, array $data, int $idUsuario)
     {
-        $venta = $this->getVentaById->handle($id);
-
-        return $this->updateVentaAction->handle($venta, $data, $idUsuario);
+        return $this->updateVentaAction->handle($id, $data, $idUsuario);
     }
 
     public function delete(int $id, int $idUsuario)
     {
-        $venta = $this->getVentaById->handle($id);
-        $this->deleteVentaAction->handle($venta, $idUsuario);
+        $this->deleteVentaAction->handle($id, $idUsuario);
     }
 }

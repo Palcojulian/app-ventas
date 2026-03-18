@@ -8,8 +8,9 @@ use App\Services\Inventario\MovimientoInventarioService;
 
 class UpdateCompraAction
 {
-    public function handle(Compra $compra, array $data, int $idUsuario): Compra
+    public function handle(int $id_compra, array $data, int $idUsuario): Compra
     {
+        $compra = Compra::findOrFail($id_compra);
         $movimientoInventarioService = new MovimientoInventarioService;
         $estadoAnterior = $compra->estado;
         $nuevoEstado = $data['estado'] ?? $compra->estado;

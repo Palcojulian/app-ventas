@@ -53,7 +53,7 @@ class VentaController extends Controller
         try {
             $venta = $this->ventaService->getById($id);
 
-            return response()->json($venta);
+            return response()->json(["id_venta" => $id, "items_venta" => $venta]);
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'error' => 'Venta no encontrada.',

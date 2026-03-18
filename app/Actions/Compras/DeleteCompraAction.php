@@ -8,8 +8,9 @@ use App\Services\Inventario\MovimientoInventarioService;
 
 class DeleteCompraAction
 {
-    public function handle(Compra $compra, int $idUsuario): void
+    public function handle(int $id_compra, int $idUsuario): void
     {
+        $compra = Compra::findOrFail($id_compra);
         $movimientoInventarioService = new MovimientoInventarioService;
 
         if ($compra->estado === 'completado') {

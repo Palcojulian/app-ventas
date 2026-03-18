@@ -36,14 +36,11 @@ class CompraService
 
     public function update(int $id, array $data, int $idUsuario)
     {
-        $compra = $this->getCompraById->handle($id);
-
-        return $this->updateCompraAction->handle($compra, $data, $idUsuario);
+        return $this->updateCompraAction->handle($id, $data, $idUsuario);
     }
 
     public function delete(int $id, int $idUsuario)
     {
-        $compra = $this->getCompraById->handle($id);
-        $this->deleteCompraAction->handle($compra, $idUsuario);
+        $this->deleteCompraAction->handle($id, $idUsuario);
     }
 }

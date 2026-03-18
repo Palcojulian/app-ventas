@@ -8,13 +8,20 @@ use Illuminate\Database\Eloquent\Collection;
 class GetAllVentas
 {
     public function handle(?string $estado = null): Collection
-    {
-        $query = Venta::with(['cliente', 'usuario', 'detalleVentas.producto']);
+    {   
 
-        if ($estado !== null) {
-            $query->where('estado', $estado);
-        }
-
-        return $query->orderBy('created_at', 'desc')->get();
+        $data = Venta::query()->selectRaw("
+            ventas.*,
+            uc.name as cliente,
+            ua.name as usuario_sistema
+        ")
+        ->join("users as uc", "uc.id","=","ventas.id_cliente")
+        ->join("users as ua", "ua.id", "=", "ventas.id_usuario")
+        ->when(
+            $estado, 
+            fn($query, $value) => $query->where("ventas.estado", "=", $value)
+        )->get();
+    
+        return $data;
     }
 }
