@@ -8,6 +8,9 @@ use App\Actions\Productos\UpdateProductoAction;
 use App\Queries\Productos\GetAllProductos;
 use App\Queries\Productos\GetProductoById;
 use Illuminate\Database\Eloquent\Collection;
+use App\Imports\ProductosImport;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class ProductoService
 {
@@ -45,5 +48,9 @@ class ProductoService
     {
         $producto = $this->getProductoById->handle($id);
         $this->deleteProductoAction->handle($producto);
+    }
+
+    public function importar($data) {
+        Excel::import(new ProductosImport, $data);
     }
 }

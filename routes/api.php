@@ -42,6 +42,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/{id}', [ProductoController::class, 'show']);
             Route::put('/{id}', [ProductoController::class, 'update']);
             Route::delete('/{id}', [ProductoController::class, 'destroy']);
+            Route::post('/importar', [ProductoController::class, 'importarProductos']);
         });
 
         Route::prefix('compras')->group(function () {
