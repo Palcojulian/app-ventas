@@ -111,7 +111,7 @@ class ProductoController extends Controller
             return response()->json(['message' => 'Acción realizada con exito'], 200);
         } catch (Throwable $e) {
             return response()->json([
-                'error' => 'Error al eliminar el producto.',
+                'error' => 'Error al importar ficheros.',
                 'message' => $e->getMessage(),
             ], 500);
         }
