@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Productos;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Productos\ImportExcelRequest;
 use App\Http\Requests\Productos\StoreProductoRequest;
 use App\Http\Requests\Productos\UpdateProductoRequest;
 use App\Services\Productos\ProductoService;
@@ -98,6 +99,19 @@ class ProductoController extends Controller
         } catch (Throwable $e) {
             return response()->json([
                 'error' => 'Error al eliminar el producto.',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function importarProductos(ImportExcelRequest $request)
+    {
+        try {
+            $this->productoService->importar($request->file('archivo'));
+            return response()->json(['message' => 'Acción realizada con exito'], 200);
+        } catch (Throwable $e) {
+            return response()->json([
+                'error' => 'Error al importar ficheros.',
                 'message' => $e->getMessage(),
             ], 500);
         }
