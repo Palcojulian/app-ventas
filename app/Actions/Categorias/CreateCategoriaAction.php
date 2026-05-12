@@ -12,6 +12,7 @@ class CreateCategoriaAction
             'nombre' => $data['nombre'],
             'descripcion' => $data['descripcion'] ?? null,
             'estado' => $data['estado'] ?? 'activo',
+            'prefijo' => $data['prefijo'] ?? null,
         ]);
     }
 }

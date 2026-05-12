@@ -12,6 +12,7 @@ class UpdateCategoriaAction
             'nombre' => $data['nombre'] ?? $categoria->nombre,
             'descripcion' => $data['descripcion'] ?? $categoria->descripcion,
             'estado' => $data['estado'] ?? $categoria->estado,
+            'prefijo' => $data['prefijo'] ?? $categoria->prefijo,
         ]);
 
         return $categoria->fresh();

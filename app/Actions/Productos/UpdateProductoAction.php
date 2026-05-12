@@ -21,6 +21,9 @@ class UpdateProductoAction
             'estado' => $data['estado'] ?? $producto->estado,
         ]);
 
+    
+
+
         return $producto->fresh();
     }
 }

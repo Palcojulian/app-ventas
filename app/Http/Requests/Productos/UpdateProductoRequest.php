@@ -18,7 +18,6 @@ class UpdateProductoRequest extends FormRequest
         $productoId = $this->route('id');
 
         return [
-            'codigo' => 'sometimes|string|max:50|unique:productos,codigo,'.$productoId,
             'nombre' => 'sometimes|string|max:255',
             'descripcion' => 'nullable|string',
             'id_categoria' => 'sometimes|exists:categorias,id',
