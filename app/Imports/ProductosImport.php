@@ -2,16 +2,21 @@
 
 namespace App\Imports;
 
-use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use App\Actions\Productos\CreateProductoAction;
+
 
 class ProductosImport  implements ToModel, WithHeadingRow
 {
+    private CreateProductoAction $createProductoAction;
+
+    public function __construct() {
+        $this->createProductoAction = new CreateProductoAction();
+    }
+
     public function model(array $row)
     {
-        Log::info($row['columna_1']);
-        Log::info($row['codigo_tienda']);
-        Log::info($row['codigo_barras_o_qr']);    
+        $this->createProductoAction->handle($row);
     }
 }
