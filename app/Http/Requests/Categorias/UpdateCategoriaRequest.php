@@ -19,6 +19,7 @@ class UpdateCategoriaRequest extends FormRequest
             'nombre' => 'sometimes|string|max:255',
             'descripcion' => 'nullable|string',
             'estado' => 'nullable|string|in:activo,inactivo',
+            'prefijo' => 'nullable|string|max:10',
         ];
     }
 
@@ -30,6 +31,8 @@ class UpdateCategoriaRequest extends FormRequest
             'descripcion.string' => 'La descripción debe ser una cadena de texto.',
             'estado.string' => 'El estado debe ser una cadena de texto.',
             'estado.in' => 'El estado debe ser: activo o inactivo.',
+            'prefijo.string' => 'El prefijo debe ser una cadena de texto.',
+            'prefijo.max' => 'El prefijo no puede exceder los 10 caracteres.',
         ];
     }
 

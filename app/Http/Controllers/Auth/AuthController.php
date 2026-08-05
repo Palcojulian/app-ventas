@@ -42,23 +42,21 @@ class AuthController extends Controller
     public function login(LoginRequest $request): JsonResponse
     {
         try {
-            $token = $this->authService->login($request->validated());
+            $result = $this->authService->login($request->validated());
 
-            if (! $token) {
+            if (! $result) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Credenciales incorrectas.',
                 ], 401);
             }
 
-            $user = auth()->user();
-
             return response()->json([
                 'success' => true,
                 'message' => 'Inicio de sesión exitoso.',
                 'data' => [
-                    'user' => $user,
-                    'token' => $token,
+                    'user' => $result['user'],
+                    'token' => $result['token'],
                 ],
             ]);
         } catch (Throwable $e) {

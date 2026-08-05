@@ -18,7 +18,7 @@ class AuthService
         return $this->registerUserAction->handle($data);
     }
 
-    public function login(array $data): ?string
+    public function login(array $data): ?array
     {
         return $this->loginUserAction->handle($data);
     }

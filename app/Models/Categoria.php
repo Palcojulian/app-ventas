@@ -14,6 +14,7 @@ class Categoria extends Model
         'nombre',
         'descripcion',
         'estado',
+        'prefijo',
     ];
 
     public function productos(): HasMany

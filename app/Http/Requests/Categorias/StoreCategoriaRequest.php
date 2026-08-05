@@ -19,6 +19,7 @@ class StoreCategoriaRequest extends FormRequest
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string|max:255',
             'estado' => 'nullable|string|in:activo,inactivo',
+            'prefijo' => 'required|string|max:10',
         ];
     }
 
@@ -32,6 +33,8 @@ class StoreCategoriaRequest extends FormRequest
             'descripcion.max' => 'El descripción no puede exceder los 255 caracteres.',
             'estado.string' => 'El estado debe ser una cadena de texto.',
             'estado.in' => 'El estado debe ser: activo o inactivo.',
+            'prefijo.string' => 'El prefijo debe ser una cadena de texto.',
+            'prefijo.max' => 'El prefijo no puede exceder los 10 caracteres.',
         ];
     }
 

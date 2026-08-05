@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Hash;
 
 class LoginUserAction
 {
-    public function handle(array $data): ?string
+    public function handle(array $data): ?array
     {
         $user = User::where('email', $data['email'])->first();
 
@@ -15,6 +15,9 @@ class LoginUserAction
             return null;
         }
 
-        return $user->createToken('auth-token')->plainTextToken;
+        return [
+            'user' => $user,
+            'token' => $user->createToken('auth-token')->plainTextToken,
+        ];
     }
 }

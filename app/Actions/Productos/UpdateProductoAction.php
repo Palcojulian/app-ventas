@@ -2,6 +2,7 @@
 
 namespace App\Actions\Productos;
 
+use App\Models\Categoria;
 use App\Models\Producto;
 
 class UpdateProductoAction
@@ -9,7 +10,6 @@ class UpdateProductoAction
     public function handle(Producto $producto, array $data): Producto
     {
         $producto->update([
-            'codigo' => $data['codigo'] ?? $producto->codigo,
             'nombre' => $data['nombre'] ?? $producto->nombre,
             'descripcion' => $data['descripcion'] ?? $producto->descripcion,
             'id_categoria' => $data['id_categoria'] ?? $producto->id_categoria,
@@ -20,7 +20,7 @@ class UpdateProductoAction
             'unidad_medida' => $data['unidad_medida'] ?? $producto->unidad_medida,
             'estado' => $data['estado'] ?? $producto->estado,
         ]);
-
+        
         return $producto->fresh();
     }
 }

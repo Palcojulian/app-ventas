@@ -38,7 +38,9 @@ class CreateCompraAction
 
                 if (($data['estado'] ?? 'pendiente') === 'completado') {
                     $producto = Producto::find($detalle['id_producto']);
+                    $producto->costo = $detalle['costo_unitario'];
                     $producto->increment('stock_actual', $detalle['cantidad']);
+                    $producto->save();
 
                     $movimientoInventarioService->registrarMovimiento(
                         $detalle['id_producto'],
