@@ -6,9 +6,6 @@ echo "======================================"
 echo " Iniciando aplicación Laravel"
 echo "======================================"
 
-echo "Instalando dependencias de Composer..."
-composer install
-
 echo "Esperando a MySQL..."
 
 until php -r "
@@ -27,9 +24,10 @@ try {
     sleep 2
 done
 
-echo ""
-echo "Ejecutando migraciones y seeders..."
+echo "Instalando dependencias"
 composer install --no-dev --optimize-autoloader
+
+echo "Limpiando cache y ejecutando migraciones"
 php artisan migrate --force
 php artisan config:cache
 php artisan route:cache
