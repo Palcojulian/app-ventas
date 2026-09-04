@@ -25,10 +25,8 @@ class AuthController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Usuario registrado exitosamente.',
-                'data' => [
-                    'user' => $user,
-                    'token' => $token,
-                ],
+                'token' => $token,
+                'user' => $user,
             ], 201);
         } catch (Throwable $e) {
             return response()->json([
@@ -44,7 +42,7 @@ class AuthController extends Controller
         try {
             $result = $this->authService->login($request->validated());
 
-            if (! $result) {
+            if (!$result) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Credenciales incorrectas.',
@@ -54,10 +52,9 @@ class AuthController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Inicio de sesión exitoso.',
-                'data' => [
-                    'user' => $result['user'],
-                    'token' => $result['token'],
-                ],
+                'token' => $result['token'],
+                'user' => $result['user'],
+                
             ]);
         } catch (Throwable $e) {
             return response()->json([
