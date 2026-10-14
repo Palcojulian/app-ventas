@@ -8,31 +8,37 @@ echo "======================================"
 
 echo "Esperando a MySQL..."
 
-until php -r "
+until php -r '
 try {
-    \$pdo = new PDO(
-        'mysql:host=mysql;port=3306',
-        'laravel',
-        'secret'
+    $pdo = new PDO(
+        sprintf(
+            "mysql:host=%s;port=%s;dbname=%s",
+            getenv("DB_HOST"),
+            getenv("DB_PORT"),
+            getenv("DB_DATABASE")
+        ),
+        getenv("DB_USERNAME"),
+        getenv("DB_PASSWORD"),
+        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
     );
-    echo 'MySQL disponible';
-} catch (PDOException \$e) {
+    echo "MySQL disponible\n";
+} catch (PDOException $e) {
+    fwrite(STDERR, $e->getMessage() . "\n");
     exit(1);
 }
-"; do
+'; do
     echo "MySQL todavía no está disponible..."
     sleep 2
 done
 
-echo "Instalando dependencias"
-composer install --no-dev --optimize-autoloader
+echo "Instalando dependencias..."
+composer install --no-interaction --optimize-autoloader
 
-echo "Limpiando cache y ejecutando migraciones"
+echo "Preparando Laravel..."
+mkdir -p storage/framework/{cache,sessions,views} bootstrap/cache
+
+php artisan config:clear
 php artisan migrate --force
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
 
-echo ""
 echo "Iniciando Laravel..."
-php artisan serve --host=0.0.0.0 --port=8000
+exec php artisan serve --host=0.0.0.0 --port=8000
