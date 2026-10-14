@@ -8,6 +8,7 @@ use App\Http\Requests\Productos\StoreProductoRequest;
 use App\Http\Requests\Productos\UpdateProductoRequest;
 use App\Services\Productos\ProductoService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Throwable;
@@ -108,7 +109,11 @@ class ProductoController extends Controller
     {
         try {
             $this->productoService->importar($request->file('archivo'));
+
             return response()->json(['message' => 'Acción realizada con exito'], 200);
+        } catch (HttpResponseException $e) {
+            // Preserva el shape de error estandar (típicamente 422) lanzado desde capas inferiores.
+            throw $e;
         } catch (Throwable $e) {
             return response()->json([
                 'error' => 'Error al importar ficheros.',

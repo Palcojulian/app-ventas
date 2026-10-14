@@ -5,12 +5,13 @@ namespace App\Services\Productos;
 use App\Actions\Productos\CreateProductoAction;
 use App\Actions\Productos\DeleteProductoAction;
 use App\Actions\Productos\UpdateProductoAction;
+use App\Imports\ProductosImport;
+use App\Models\Categoria;
 use App\Queries\Productos\GetAllProductos;
 use App\Queries\Productos\GetProductoById;
 use Illuminate\Database\Eloquent\Collection;
-use App\Imports\ProductosImport;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Maatwebsite\Excel\Facades\Excel;
-
 
 class ProductoService
 {
@@ -50,7 +51,25 @@ class ProductoService
         $this->deleteProductoAction->handle($producto);
     }
 
-    public function importar($data) {
+    public function importar($data): void
+    {
+        $this->asegurarCategoriasRegistradas();
+
         Excel::import(new ProductosImport, $data);
+    }
+
+    private function asegurarCategoriasRegistradas(): void
+    {
+        if (Categoria::query()->exists()) {
+            return;
+        }
+
+        $mensaje = 'No existen categorías registradas. Registra al menos una categoría antes de cargar productos desde Excel.';
+
+        throw new HttpResponseException(response()->json([
+            'success' => false,
+            'message' => 'Campos requeridos pendientes',
+            'errores' => $mensaje,
+        ], 422));
     }
 }
